@@ -1,0 +1,132 @@
+#register-page {
+  margin: auto;
+  max-width: 1000px;
+  margin-top: 50px;
+}
+
+.auth-logo {
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.auth-content {
+  display: flex;
+  align-items: center;
+}
+
+.auth-image {
+  width: 50%;
+}
+
+.auth-input-form {
+  width: 50%;
+  margin-left: 50px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(165, 165, 165, 0.296);
+  padding: 25px;
+  border-radius: 10px;
+}
+
+.auth-input-form h1 {
+  text-align: center;
+}
+
+.auth-input-form p {
+  text-align: center;
+}
+
+.input-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-container label {
+  margin-top: 10px;
+}
+
+.input-container input{
+  padding: 15px;
+  border-radius: 10px;
+  display: block;
+  width: 100%;
+  border: solid 1px rgb(211, 211, 211);
+}
+
+.auth-input-form button {
+  margin-top: 30px;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  transition: all ease 0.3s;
+  cursor: pointer;
+}
+
+.auth-input-form button:hover {
+  background-color: rgb(34, 34, 34);
+}
+
+.auth-input-form p {
+  margin-top: 5px;
+}
+
+.auth-input-form .bottom-desc {
+  margin-top: 20px;
+  text-align: left;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 1000px) {
+  .auth-logo {
+    text-align: center;
+    margin-bottom:40px;
+  }
+
+  .auth-logo img {
+    height: 35px;
+  }
+
+  .auth-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .auth-image {
+    display: none;
+  }
+
+  .auth-image {
+    height: 100%;
+  }
+  
+  .auth-input-form {
+    width: 90%;
+    margin-left: 50px;
+    margin-right: 50px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(165, 165, 165, 0.296);
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 50px;
+  }
+
+  .auth-input-form  h1 {
+    font-size: 24px;
+  }
+
+  .auth-input-form p {
+    margin-top: 5px;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .auth-input-form label {
+    margin-top: 5px;
+    font-size: 14px;
+  }
+}

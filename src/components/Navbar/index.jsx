@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 import './navbar.css'
+import { useNavigate } from 'react-router-dom'
+import logo from '../../assets/logo.png'
 
 const Navbar = () => {
- const [nav, setNav] = useState(false)
+  const navigate = useNavigate();
+  const [nav, setNav] = useState(false)
 
- const clickHamburger = () => {
-  setNav(!nav);
-  console.log(nav);
- }
+  const clickHamburger = () => {
+    setNav(!nav);
+    console.log(nav);
+  }
 
   const printNavmenu = () => {
     if (nav === true) {
@@ -15,8 +18,8 @@ const Navbar = () => {
         <div id="nav-mobile-menu">
           <input type="text" placeholder='Search products'/>
           <ul>
-            <li><button className='login-btn'>Login</button></li>
-            <li><button className='register-btn'>Register</button></li>
+            <li><button onClick={() => navigate("/login")} className='login-btn'>Login</button></li>
+            <li><button onClick={() => navigate("/register")} className='register-btn'>Register</button></li>
           </ul>
         </div>
       )
@@ -36,16 +39,16 @@ const Navbar = () => {
       </div>
       <div id="bottom-nav">
         <div id="left-side">
-          <h1>Logo</h1>
+          <img src={logo} alt="" height={"40px"} onClick={() => navigate("/")}/>
           <input type="text" placeholder='Search products'/>
         </div>
         <div id="right-side">
-          <button>Login</button>
-          <button>Register</button>
+          <button onClick={() => navigate("/login")}>Login</button>
+          <button onClick={() => navigate("/register")}>Register</button>
         </div>
       </div>
       <div id="bottom-nav-mobile">
-        <h1>Logo</h1>
+        <img src={logo} alt="" height={"30px"} onClick={() => navigate("/")}/>
         <div id="nav-hamburger" onClick={() => clickHamburger()}>
           <span></span>
           <span></span>
