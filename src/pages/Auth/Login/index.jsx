@@ -1,11 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './login.css'
 import logo from '../../../assets/logo.png'
 import illus from '../../../assets/auth-illus.png';
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  const onLogin = async () => {
+    try {
+      if (email && password) {
+        const result = await axios.post(`${import.meta.env.VITE_API_URL}/account/login` , {
+          email,
+          password
+        })
+        console.log(result.data.result.role);
+        console.log(result.data.result.email);
+        localStorage.setItem("role", result.data.result.role);
+        localStorage.setItem("email", result.data.result.email)
+        setEmail("");
+        setPassword("");
+        navigate("/");
+      } else {
+        alert("Fill all the form")
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem("email")) {
+      navigate("/")
+    }
+  })
 
   return (
     <div id='login-page'>
@@ -21,11 +52,11 @@ const Login = () => {
           <p>Don't have an account? <span style={{cursor:"pointer"}} onClick={() => navigate("/register")}>Register here</span></p>
           <div className="input-container">
             <label htmlFor="email">Email</label>
-            <input type="text" id='email'/>
+            <input defaultValue={email} type="text" id='email' onChange={(e) => setEmail(e.target.value)}/>
             <label htmlFor="pass">Password</label>
-            <input type="password" id='pass'/>
+            <input defaultValue={password} type="password" id='pass' onChange={(e) => setPassword(e.target.value)}/>
           </div>
-          <button>Log in</button>
+          <button onClick={() => onLogin()}>Log in</button>
           <p className='bottom-desc'>Forgot your password? <span>Recover here</span></p>
         </div>
       </div>

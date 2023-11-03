@@ -64,6 +64,17 @@
   display: none;
 }
 
+#login-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+#login-nav i {
+  font-size: 26px;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 850px) {
   #top-nav {
     padding: 20px 30px;

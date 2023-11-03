@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './navbar.css'
 import { useNavigate } from 'react-router-dom'
 import logo from '../../assets/logo.png'
+import 'boxicons'
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -28,6 +29,30 @@ const Navbar = () => {
     }
   }
 
+  const printRightNav = () => {
+    let userMail = localStorage.getItem("email");
+    if (userMail) {
+      return (
+        <div id='login-nav'>
+          <h3>Welcome, {userMail}</h3>
+          <i class='bx bx-log-out' onClick={() => onLogout()}></i>
+        </div>
+      )
+    } else {
+      return (
+        <div id="right-side">
+          <button onClick={() => navigate("/login")}>Login</button>
+          <button onClick={() => navigate("/register")}>Register</button>
+        </div>
+      )
+    }
+  }
+
+  const onLogout = () => {
+    localStorage.clear();
+    navigate("/")
+  }
+
   return (
     <div>
       <div id="top-nav">
@@ -42,9 +67,8 @@ const Navbar = () => {
           <img src={logo} alt="" height={"40px"} onClick={() => navigate("/")}/>
           <input type="text" placeholder='Search products'/>
         </div>
-        <div id="right-side">
-          <button onClick={() => navigate("/login")}>Login</button>
-          <button onClick={() => navigate("/register")}>Register</button>
+        <div>
+          {printRightNav()}
         </div>
       </div>
       <div id="bottom-nav-mobile">
