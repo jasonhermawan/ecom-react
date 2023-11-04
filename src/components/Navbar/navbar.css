@@ -104,7 +104,7 @@
 .dropdown-profile ul {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 22px;
 }
 
 .dropdown-profile ul li {
@@ -131,7 +131,7 @@
 .logout-btn {
   background-color: black;
   padding: 10px;
-  margin-top: 30px;
+  margin-top: 50px;
   display: flex;
   align-items: center;
   gap: 10px;

@@ -56,6 +56,10 @@ const Navbar = () => {
                 <i class="bx bx-user"></i>
                 <h3>Account</h3>
               </li>
+              <li onClick={() => navigate("/store/manage")}>
+                <i class='bx bx-bar-chart-alt-2'></i>
+                <h3>Manage</h3>
+              </li>
               <li onClick={() => navigate("/add-product")}>
                 <i class="bx bx-add-to-queue"></i>
                 <h3>Add Product</h3>
