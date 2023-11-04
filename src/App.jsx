@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Register from './pages/Auth/Register'
 import Login from './pages/Auth/Login'
 import AddProductPage from './pages/Store/AddProduct'
+import EditProfilePage from './pages/EditProfile'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path='/register' element={<Register />}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/add-product' element={<AddProductPage />}/>
+        <Route path='/account/settings' element={<EditProfilePage />}/>
       </Routes>
     </div>
   )

@@ -44,14 +44,15 @@ const Navbar = () => {
   const printDropDown = () => {
     let userMail = localStorage.getItem("email");
     let userRole = localStorage.getItem("role");
+    let username = localStorage.getItem("username");
     if (profileClick === true) {
       if (userRole === "store") {
         return (
           <div className="dropdown-profile">
-            <h3 className="welcoming-text">Welcome, {userMail}</h3>
+            <h3 className="welcoming-text">Welcome, {username || userMail}</h3>
             <hr />
             <ul>
-              <li>
+              <li onClick={() => navigate("/account/settings")}>
                 <i class="bx bx-user"></i>
                 <h3>Account</h3>
               </li>
@@ -69,10 +70,10 @@ const Navbar = () => {
       } else if (userRole === "user") {
         return (
           <div className="dropdown-profile">
-            <h3 className="welcoming-text">Welcome, {userMail}</h3>
+            <h3 className="welcoming-text">Welcome, {username || userMail}</h3>
             <hr />
             <ul>
-              <li>
+              <li onClick={() => navigate("/account/settings")}>
                 <i class="bx bx-user"></i>
                 <h3>Account</h3>
               </li>
@@ -102,7 +103,7 @@ const Navbar = () => {
             src="https://images.tokopedia.net/img/cache/300/tPxBYm/2023/1/20/bc329335-3ba7-43d2-a2ee-75162ac97055.jpg"
             alt=""
             height={"50px"}
-            onClick={() => setProfileClick(!profileClick)}
+            onMouseEnter={() => setProfileClick(true)}
             style={{cursor: "pointer"}}
           />
           {printDropDown()}
@@ -124,7 +125,7 @@ const Navbar = () => {
   };
 
   return (
-    <div>
+    <div onMouseLeave={() => setProfileClick(false)}>
       <div id="top-nav">
         <ul>
           <li>Download App</li>

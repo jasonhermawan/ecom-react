@@ -20,6 +20,8 @@ const Login = () => {
         localStorage.setItem("token", result.data.result.token);
         localStorage.setItem("role", result.data.result.role);
         localStorage.setItem("email", result.data.result.email);
+        localStorage.setItem("username", result.data.result.username);
+        localStorage.setItem("phone", result.data.result.phone)
         setEmail("");
         setPassword("");
         navigate("/");
