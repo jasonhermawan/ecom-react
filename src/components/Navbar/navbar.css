@@ -65,14 +65,78 @@
 }
 
 #login-nav {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-#login-nav i {
-  font-size: 26px;
+#login-nav img{
+  border-radius: 50%;
+}
+
+.dropdown-profile {
+  position: absolute;
+  width: 300px;
+  margin: auto;
+  padding: 20px 30px;
+  background-color: white;
+  right: 0px;
+  top: 60px;
+  box-shadow: 0 0 10px rgba(130, 130, 130, 0.171);
+  border-radius: 10px;
+}
+
+.dropdown-profile .welcoming-text {
+  font-size: 18px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.dropdown-profile hr {
+  margin-bottom: 20px;
+}
+
+.dropdown-profile ul {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.dropdown-profile ul li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   cursor: pointer;
+}
+
+.dropdown-profile ul li i {
+  font-size: 22px;
+}
+
+.dropdown-profile ul li h3 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.logout-btn {
+  background-color: black;
+  padding: 10px;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  border-radius: 10px;
+}
+
+.logout-btn h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.logout-btn i {
+  font-size: 20px;
 }
 
 @media screen and (max-width: 850px) {

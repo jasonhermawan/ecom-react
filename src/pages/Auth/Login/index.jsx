@@ -17,10 +17,9 @@ const Login = () => {
           email,
           password
         })
-        console.log(result.data.result.role);
-        console.log(result.data.result.email);
+        localStorage.setItem("token", result.data.result.token);
         localStorage.setItem("role", result.data.result.role);
-        localStorage.setItem("email", result.data.result.email)
+        localStorage.setItem("email", result.data.result.email);
         setEmail("");
         setPassword("");
         navigate("/");

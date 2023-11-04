@@ -1,0 +1,17 @@
+.banner-slider {
+  margin-bottom: 50px;
+}
+
+.banner-slider img {
+  border-radius: 10px;
+}
+
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+#best-deals h1 {
+  margin-bottom: 20px;
+}
