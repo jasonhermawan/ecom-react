@@ -4,6 +4,7 @@ import Layout from '../../../Layout'
 import productCard from  '../../../components/productCard'
 import ProductCard from '../../../components/productCard'
 import axios from 'axios'
+import ProductDashCard from '../../../components/ProductDashCard'
 
 const Dashboard = () => {
   const [productsList, setProductsList] = useState([]);
@@ -23,14 +24,32 @@ const Dashboard = () => {
     getStoreProducts();
   },[])
 
+  const deleteProduct = async (id, userid) => {
+    console.log(token);
+    console.log(userid);
+    console.log(id);
+    try {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/product/${token}/${userid}/${id}`)
+      alert("Product Deleted")
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getStoreProducts();
+  },[deleteProduct()])
+
   const printProductsList = () => {
     return productsList.map((val) => {
       return (
-        <ProductCard 
+        <ProductDashCard
+          key = {val.id}
           name = {val.name}
           image = {val.image}
           price = {(val.price).toLocaleString("id")}
           userid = {val.userid}
+          onDelete = {() => deleteProduct(val.id, val.userid)}
         />
       )
     })

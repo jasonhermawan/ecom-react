@@ -1,3 +1,15 @@
+#store-dash {
+  min-width: 1200px;
+  max-width: 1200px;
+  margin: auto;
+}
+
 .dash-title {
   margin-bottom: 20px;
+}
+
+#store-products-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

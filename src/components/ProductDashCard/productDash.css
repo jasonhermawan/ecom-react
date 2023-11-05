@@ -1,0 +1,46 @@
+#product-dash-card {
+  display: flex;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(207, 207, 207, 0.372);
+  border-radius: 10px;
+  justify-content: space-between;
+}
+
+#product-dash-card img {
+  height: 150px;
+}
+
+.product-details-content {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.detail-text h1 {
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.detail-text p {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.action-btn {
+  display: flex;
+  gap: 20px;
+}
+
+.action-btn button {
+  border: none;
+  padding: 15px;
+  width: 100px;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
