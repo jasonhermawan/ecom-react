@@ -5,8 +5,11 @@ import productCard from  '../../../components/productCard'
 import ProductCard from '../../../components/productCard'
 import axios from 'axios'
 import ProductDashCard from '../../../components/ProductDashCard'
+import { useNavigate } from 'react-router-dom'
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
   const [productsList, setProductsList] = useState([]);
 
   const token = localStorage.getItem("token");
@@ -38,7 +41,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     getStoreProducts();
-  },[deleteProduct()])
+  },[deleteProduct])
 
   const printProductsList = () => {
     return productsList.map((val) => {
@@ -50,6 +53,7 @@ const Dashboard = () => {
           price = {(val.price).toLocaleString("id")}
           userid = {val.userid}
           onDelete = {() => deleteProduct(val.id, val.userid)}
+          onEdit = {() => navigate(`/store/edit-product/${val.id}`)}
         />
       )
     })

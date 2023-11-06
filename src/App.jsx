@@ -7,6 +7,8 @@ import Login from './pages/Auth/Login'
 import AddProductPage from './pages/Store/AddProduct'
 import EditProfilePage from './pages/EditProfile'
 import Dashboard from './pages/Store/Dashboard'
+import EditProductPage from './pages/Store/EditProduct'
+import Verification from './pages/Verification'
 
 function App() {
 
@@ -15,9 +17,11 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/register' element={<Register />}/>
+        <Route path='/verification' element={<Verification />}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/add-product' element={<AddProductPage />}/>
         <Route path='/store/manage' element={<Dashboard />}/>
+        <Route path='/store/edit-product/:id' element={<EditProductPage />}/>
         <Route path='/account/settings' element={<EditProfilePage />}/>
       </Routes>
     </div>

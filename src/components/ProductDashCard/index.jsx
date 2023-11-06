@@ -12,7 +12,7 @@ const ProductDashCard = (props) => {
         </div>
       </div>
       <div className='action-btn'>
-        <button>Edit</button>
+        <button onClick={props.onEdit}>Edit</button>
         <button onClick={props.onDelete}>Delete</button>
       </div>
     </div>
