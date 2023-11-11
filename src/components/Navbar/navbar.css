@@ -36,11 +36,31 @@
   gap: 30px;
 }
 
-#left-side input {
-  padding: 15px;
+#input-search-container {
   width: 80%;
+  position: relative;
+}
+
+#input-search-container input {
+  width: 100%;
+  padding: 15px;
   border-radius: 10px;
   border: solid 1px rgb(200, 200, 200);
+}
+
+#search-result {
+  z-index: 1000;
+  position: absolute;
+  padding: 15px;
+  top: 70px;
+  background-color: white;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(206, 206, 206, 0.465);
+}
+
+#search-result h3 {
+  margin-bottom: 10px;
 }
 
 #right-side {

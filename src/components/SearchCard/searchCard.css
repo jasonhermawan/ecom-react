@@ -1,0 +1,12 @@
+#search-card-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 5px;
+  cursor: pointer;
+}
+
+#search-card-content:hover {
+  background-color: rgba(219, 219, 219, 0.237);
+  border-radius: 5px;
+}

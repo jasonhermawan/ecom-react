@@ -3,11 +3,15 @@ import "./navbar.css";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import "boxicons";
+import axios from "axios";
+import SearchCard from "../SearchCard";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [nav, setNav] = useState(false);
-  const [profileClick, setProfileClick] = useState(false)
+  const [profileClick, setProfileClick] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [dataProducts, setDataProducts] = useState([]);
 
   const clickHamburger = () => {
     setNav(!nav);
@@ -57,7 +61,7 @@ const Navbar = () => {
                 <h3>Account</h3>
               </li>
               <li onClick={() => navigate("/store/manage")}>
-                <i class='bx bx-bar-chart-alt-2'></i>
+                <i class="bx bx-bar-chart-alt-2"></i>
                 <h3>Manage</h3>
               </li>
               <li onClick={() => navigate("/add-product")}>
@@ -82,7 +86,7 @@ const Navbar = () => {
                 <h3>Account</h3>
               </li>
               <li>
-              <i class="bx bx-shopping-bag"></i>
+                <i class="bx bx-shopping-bag"></i>
                 <h3>Cart</h3>
               </li>
             </ul>
@@ -108,7 +112,7 @@ const Navbar = () => {
             alt=""
             height={"50px"}
             onMouseEnter={() => setProfileClick(true)}
-            style={{cursor: "pointer"}}
+            style={{ cursor: "pointer" }}
           />
           {printDropDown()}
         </div>
@@ -118,6 +122,52 @@ const Navbar = () => {
         <div id="right-side">
           <button onClick={() => navigate("/login")}>Login</button>
           <button onClick={() => navigate("/register")}>Register</button>
+        </div>
+      );
+    }
+  };
+
+  const getProducts = () => {
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/product/`)
+      .then((res) => {
+        setDataProducts(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  const printSearchResult = () => {
+    return dataProducts
+      .filter((value) => {
+        return value.name.toLowerCase().includes(searchInput.toLowerCase());
+      })
+      .map((value) => {
+        return (
+          <SearchCard
+            productname={value.name}
+            onclick={() => {
+              navigate(`/detail/${value.account.username}/${value.name}/${value.id}`);
+              setSearchInput("");
+            }}
+          />
+        );
+      });
+  };
+
+  const printSearch = () => {
+    if (searchInput === "") {
+      return "";
+    } else {
+      return (
+        <div id="search-result">
+          <h3>Search Result</h3>
+          {printSearchResult()}
         </div>
       );
     }
@@ -139,12 +189,16 @@ const Navbar = () => {
       </div>
       <div id="bottom-nav">
         <div id="left-side">
-          <img
-            src={logo}
-            alt=""
-            onClick={() => navigate("/")}
-          />
-          <input type="text" placeholder="Search products" />
+          <img src={logo} alt="" onClick={() => navigate("/")} />
+          <div id="input-search-container">
+            <input
+              value={searchInput}
+              type="text"
+              placeholder="Search products"
+              onChange={(e) => setSearchInput(e.target.value)}
+            />
+            {printSearch()}
+          </div>
         </div>
         <div>{printRightNav()}</div>
       </div>
