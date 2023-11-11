@@ -26,6 +26,7 @@
 
 #bottom-nav img {
   cursor: pointer;
+  height: 40px;
 }
 
 #left-side {
@@ -80,6 +81,7 @@
 }
 
 .dropdown-profile {
+  z-index: 1000;
   position: absolute;
   width: 300px;
   margin: auto;
@@ -182,6 +184,10 @@
     justify-content: space-between;
     padding: 20px 30px;
     border-bottom: solid 1px rgb(240, 240, 240)
+  }
+
+  #bottom-nav-mobile img {
+    height: 40px;
   }
   
   #nav-hamburger {

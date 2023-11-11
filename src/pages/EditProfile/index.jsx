@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './editProfile.css'
 import Layout from '../../Layout'
 import axios from 'axios'
+import { useToast } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
 
 const EditProfilePage = () => {
   const currentUsername = localStorage.getItem("username");
@@ -12,20 +14,35 @@ const EditProfilePage = () => {
   const [newEmail, setNewEmail] = useState(currentEmail);
   const [newPhone, setNewPhone] = useState(currentPhone);
 
+  const toast = useToast();
+
+  const navigate = useNavigate();
+
   const token = localStorage.getItem("token");
 
   const onSubmitEdit = async () => {
     try {
       await axios.patch(`${import.meta.env.VITE_API_URL}/account/update`, {
-        token,
         username: newUsername,
         email: newEmail,
         phone: newPhone,
+      }, {
+        headers : {
+          Authorization : `Bearer ${token}`
+        }
       })
       localStorage.setItem("username", newUsername);
       localStorage.setItem("email", newEmail);
       localStorage.setItem("phone", newPhone);
-      alert("Update account success")
+      navigate("/")
+      toast({
+        title: 'Update data success.',
+        description: "Your account data is updated.",
+        position: "top",
+        status: 'success',
+        duration: 7000,
+        isClosable: true,
+      })
     } catch (error) {
       console.log(error);
     }

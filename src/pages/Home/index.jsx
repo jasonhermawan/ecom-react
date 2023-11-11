@@ -3,9 +3,11 @@ import Layout from '../../Layout'
 import ProductCard from '../../components/productCard'
 import axios from 'axios'
 import './home.css'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   const getProducts = () => {
     axios.get(`${import.meta.env.VITE_API_URL}/product/`)
@@ -22,12 +24,15 @@ const Home = () => {
 
   const printCard = () => {
     return products.map((val) => {
+      console.log("printcard",val);
       return (
         <ProductCard 
+          key = {val.id}
           name = {val.name}
-          image = {val.image}
+          image = {`${import.meta.env.VITE_API_URL}/public/products/${val.product_images[0].image}`}
           price = {(val.price).toLocaleString("id")}
-          userid = {val.userid}
+          storename = {val.account.username}
+          onClick = {() => navigate(`/detail/${val.account.username}/${val.name}/${val.id}`)}
         />
       )
     })

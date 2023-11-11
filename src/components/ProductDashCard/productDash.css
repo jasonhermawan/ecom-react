@@ -9,13 +9,15 @@
 }
 
 #product-dash-card img {
+  width: 150px;
   height: 150px;
+  object-fit: cover;
 }
 
 .product-details-content {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 50px;
 }
 
 .detail-text h1 {
@@ -31,6 +33,7 @@
 }
 
 .action-btn {
+  margin-left: 50px;
   display: flex;
   gap: 20px;
 }

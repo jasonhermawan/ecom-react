@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import './dashboard.css'
 import Layout from '../../../Layout'
-import productCard from  '../../../components/productCard'
-import ProductCard from '../../../components/productCard'
 import axios from 'axios'
 import ProductDashCard from '../../../components/ProductDashCard'
 import { useNavigate } from 'react-router-dom'
+import { useToast } from '@chakra-ui/react'
 
 const Dashboard = () => {
+  const toast = useToast();
   const navigate = useNavigate();
 
   const [productsList, setProductsList] = useState([]);
@@ -15,7 +15,11 @@ const Dashboard = () => {
   const token = localStorage.getItem("token");
 
   const getStoreProducts = () => {
-    axios.get(`${import.meta.env.VITE_API_URL}/product/store/${token}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/product/store`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
     .then((res) => {
       setProductsList(res.data)
     }).catch((error) => {
@@ -27,13 +31,24 @@ const Dashboard = () => {
     getStoreProducts();
   },[])
 
-  const deleteProduct = async (id, userid) => {
+  const deleteProduct = async (id, accountid) => {
     console.log(token);
-    console.log(userid);
+    console.log(accountid);
     console.log(id);
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/product/${token}/${userid}/${id}`)
-      alert("Product Deleted")
+      await axios.delete(`${import.meta.env.VITE_API_URL}/product/${accountid}/${id}`, {
+        headers : {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      toast({
+        title: 'Product deleted.',
+        description: "Product has been deleted from your store.",
+        position: "top",
+        status: 'error',
+        duration: 7000,
+        isClosable: true,
+      })
     } catch (error) {
       console.log(error);
     }
@@ -41,7 +56,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     getStoreProducts();
-  },[deleteProduct])
+  },[deleteProduct()])
 
   const printProductsList = () => {
     return productsList.map((val) => {
@@ -49,10 +64,10 @@ const Dashboard = () => {
         <ProductDashCard
           key = {val.id}
           name = {val.name}
-          image = {val.image}
+          image = {`${import.meta.env.VITE_API_URL}/public/products/${val.product_images[0].image}`}
           price = {(val.price).toLocaleString("id")}
-          userid = {val.userid}
-          onDelete = {() => deleteProduct(val.id, val.userid)}
+          accountid = {val.accountid}
+          onDelete = {() => deleteProduct(val.id, val.accountid)}
           onEdit = {() => navigate(`/store/edit-product/${val.id}`)}
         />
       )

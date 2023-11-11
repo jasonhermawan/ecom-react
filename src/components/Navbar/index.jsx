@@ -142,7 +142,6 @@ const Navbar = () => {
           <img
             src={logo}
             alt=""
-            height={"40px"}
             onClick={() => navigate("/")}
           />
           <input type="text" placeholder="Search products" />

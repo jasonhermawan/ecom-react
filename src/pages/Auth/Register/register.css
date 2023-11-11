@@ -4,8 +4,13 @@
   margin-top: 50px;
 }
 
+.auth-logo img {
+  height: 40px;
+}
+
 .auth-logo {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   margin-bottom: 100px;
 }
 

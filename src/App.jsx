@@ -9,6 +9,7 @@ import EditProfilePage from './pages/EditProfile'
 import Dashboard from './pages/Store/Dashboard'
 import EditProductPage from './pages/Store/EditProduct'
 import Verification from './pages/Verification'
+import ProductDetail from './pages/ProductDetail'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path='/store/manage' element={<Dashboard />}/>
         <Route path='/store/edit-product/:id' element={<EditProductPage />}/>
         <Route path='/account/settings' element={<EditProfilePage />}/>
+        <Route path='/detail/:store/:name/:itemid' element={<ProductDetail />}/>
       </Routes>
     </div>
   )

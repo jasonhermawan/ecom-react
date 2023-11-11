@@ -44,7 +44,7 @@ const Register = () => {
   return (
     <div id='register-page'>
       <div className="auth-logo">
-        <img src={logo} alt="" height={"40px"} onClick={() => navigate("/")}/>
+        <img src={logo} alt="" onClick={() => navigate("/")}/>
       </div>
       <div className="auth-content">
         <div className="auth-image">

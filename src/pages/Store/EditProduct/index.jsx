@@ -6,7 +6,7 @@ import axios from 'axios';
 const EditProductPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [userid, setUserId] = useState();
+  const [accountid, setAccountId] = useState();
 
   useEffect(() => {
     if (!(localStorage.getItem("role") === "store")) {
@@ -24,7 +24,7 @@ const EditProductPage = () => {
   const getProduct = () => {
     axios.get(`${import.meta.env.VITE_API_URL}/product?id=${id}`)
     .then((res) => {
-      setUserId(`${res.data[0].userid}`)
+      setAccountId(`${res.data[0].accountid}`)
       setCurrentName(`${res.data[0].name}`);
       setCurrentPrice(`${res.data[0].price}`);
       setCurrentImage(`${res.data[0].image}`);
@@ -51,14 +51,17 @@ const EditProductPage = () => {
 
   const onUpdateProduct = async () => {
     try {
-      await axios.patch(`${import.meta.env.VITE_API_URL}/product/update/${userid}/${id}`, {
-        token,
+      await axios.patch(`${import.meta.env.VITE_API_URL}/product/update/${accountid}/${id}`, {
         name: newName,
         price: newPrice,
         image: newImage,
         stock: newStock,
         category: newCategory,
         description: newDescription,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
       setNewName();
       setNewPrice();
