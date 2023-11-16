@@ -1,0 +1,14 @@
+#store-profile-page {
+  max-width: 1200px;
+  min-width: 1200px;
+  margin: auto;
+}
+
+#store-profile-detail {
+  margin-bottom: 20px;
+}
+
+#store-products-container {
+  display: flex;
+  gap: 20px;
+}

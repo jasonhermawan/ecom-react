@@ -8,6 +8,7 @@ import StoreCard from "../../components/StoreCard";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [storeName, setStoreName] = useState([]);
   const navigate = useNavigate();
 
   const getProducts = () => {
@@ -45,6 +46,31 @@ const Home = () => {
     });
   };
 
+  const getStoreName = () => {
+    axios.get(`${import.meta.env.VITE_API_URL}/account?role=store`)
+    .then((res) => {
+      setStoreName(res.data)
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+
+  useEffect(() => {
+    getStoreName();
+  }, []);
+
+  const printStoreCard = () => {
+    return storeName.map((val) => {
+      console.log("print store card", val);
+      return (
+        <StoreCard 
+          name={val.username}
+          onclick={() => navigate(`/profile/${val.username}/${val.id}`)}
+        />
+      )
+    })
+  }
+
   return (
     <Layout>
       <div id="homepage">
@@ -62,14 +88,7 @@ const Home = () => {
         <div id="store-showcase">
           <h1>Top Seller</h1>
           <div id="store-card-container">
-            <StoreCard />
-            <StoreCard />
-            <StoreCard />
-            <StoreCard />
-            <StoreCard />
-            <StoreCard />
-            <StoreCard />
-            <StoreCard />
+            {printStoreCard()}
           </div>
         </div>
       </div>
