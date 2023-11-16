@@ -36,7 +36,7 @@ const Register = () => {
   }
 
   useEffect(() => {
-    if (localStorage.getItem("email")) {
+    if (localStorage.getItem("token")) {
       navigate("/")
     }
   })

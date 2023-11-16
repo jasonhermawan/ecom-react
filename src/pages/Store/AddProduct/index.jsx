@@ -21,10 +21,38 @@ const AddProductPage = () => {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    if (!(localStorage.getItem("role") === "store")) {
-      navigate("/");
+    if (!token) {
+      navigate("/")
     }
-  });
+  }, [])
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [role, setRole] = useState("");
+
+  const getAccountData = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/account/check/account`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setUsername(response.data.username)
+      setEmail(response.data.email);
+      setPhone(response.data.phone);
+      setRole(response.data.role);
+      if (!(response.data.role === "store")) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getAccountData();
+  }, [])
 
   const onAddProduct = async () => {
     console.log(image);

@@ -7,11 +7,38 @@ import axios from "axios";
 import SearchCard from "../SearchCard";
 
 const Navbar = () => {
+  const token = localStorage.getItem("token");
+
   const navigate = useNavigate();
   const [nav, setNav] = useState(false);
   const [profileClick, setProfileClick] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [dataProducts, setDataProducts] = useState([]);
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [role, setRole] = useState("");
+
+  const getAccountData = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/account/check/account`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setUsername(response.data.username)
+      setEmail(response.data.email);
+      setPhone(response.data.phone);
+      setRole(response.data.role);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getAccountData();
+  }, [])
 
   const clickHamburger = () => {
     setNav(!nav);
@@ -46,14 +73,11 @@ const Navbar = () => {
   };
 
   const printDropDown = () => {
-    let userMail = localStorage.getItem("email");
-    let userRole = localStorage.getItem("role");
-    let username = localStorage.getItem("username");
     if (profileClick === true) {
-      if (userRole === "store") {
+      if (role === "store") {
         return (
           <div className="dropdown-profile">
-            <h3 className="welcoming-text">Welcome, {username || userMail}</h3>
+            <h3 className="welcoming-text">Welcome, {username || email}</h3>
             <hr />
             <ul>
               <li onClick={() => navigate("/account/settings")}>
@@ -75,10 +99,10 @@ const Navbar = () => {
             </div>
           </div>
         );
-      } else if (userRole === "user") {
+      } else if (role === "user") {
         return (
           <div className="dropdown-profile">
-            <h3 className="welcoming-text">Welcome, {username || userMail}</h3>
+            <h3 className="welcoming-text">Welcome, {username || email}</h3>
             <hr />
             <ul>
               <li onClick={() => navigate("/account/settings")}>
@@ -101,9 +125,7 @@ const Navbar = () => {
   };
 
   const printRightNav = () => {
-    let userMail = localStorage.getItem("email");
-    let userRole = localStorage.getItem("role");
-    if (userMail) {
+    if (token) {
       return (
         <div id="login-nav">
           <img
@@ -148,6 +170,7 @@ const Navbar = () => {
         return value.name.toLowerCase().includes(searchInput.toLowerCase());
       })
       .map((value) => {
+        console.log("Ini value search", value);
         return (
           <SearchCard
             productname={value.name}

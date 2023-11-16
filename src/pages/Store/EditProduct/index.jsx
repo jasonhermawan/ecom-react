@@ -8,11 +8,41 @@ const EditProductPage = () => {
   const navigate = useNavigate();
   const [accountid, setAccountId] = useState();
 
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [role, setRole] = useState("");
+
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
-    if (!(localStorage.getItem("role") === "store")) {
+    if (!token) {
       navigate("/")
     }
-  })
+  }, [])
+
+  const getAccountData = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/account/check/account`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setUsername(response.data.username)
+      setEmail(response.data.email);
+      setPhone(response.data.phone);
+      setRole(response.data.role);
+      if (!(response.data.role === "store")) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getAccountData();
+  }, [])
 
   const [currentName, setCurrentName] = useState();
   const [currentPrice, setCurrentPrice] = useState();
@@ -46,8 +76,6 @@ const EditProductPage = () => {
   const [newDescription, setNewDescription] = useState(currentDescription);
   const [newStock, setNewStock] = useState(currentStock);
   const [newCategory, setNewCategory] = useState(currentCategory);
-
-  const token = localStorage.getItem("token");
 
   const onUpdateProduct = async () => {
     try {

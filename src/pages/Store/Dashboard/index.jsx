@@ -14,6 +14,40 @@ const Dashboard = () => {
 
   const token = localStorage.getItem("token");
 
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [role, setRole] = useState("");
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/")
+    }
+  }, [])
+
+  const getAccountData = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/account/check/account`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setUsername(response.data.username)
+      setEmail(response.data.email);
+      setPhone(response.data.phone);
+      setRole(response.data.role);
+      if (!(response.data.role === "store")) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getAccountData();
+  }, [])
+
   const getStoreProducts = () => {
     axios.get(`${import.meta.env.VITE_API_URL}/product/store`, {
       headers: {

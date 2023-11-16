@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './editProfile.css'
 import Layout from '../../Layout'
 import axios from 'axios'
@@ -6,9 +6,39 @@ import { useToast } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 
 const EditProfilePage = () => {
-  const currentUsername = localStorage.getItem("username");
-  const currentEmail = localStorage.getItem("email");
-  const currentPhone = localStorage.getItem("phone");
+
+  const [currentUsername, setCurrentUsername] = useState("");
+  const [currentEmail, setCurrentEmail] = useState("");
+  const [currentPhone, setCurrentPhone] = useState("");
+  const [currentRole, setCurrentRole] = useState("");
+
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/")
+    }
+  }, [])
+
+  const getAccountData = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/account/check/account`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setCurrentUsername(response.data.username)
+      setCurrentEmail(response.data.email);
+      setCurrentPhone(response.data.phone);
+      setCurrentRole(response.data.role);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getAccountData();
+  }, [])
 
   const [newUsername, setNewUsername] = useState(currentUsername);
   const [newEmail, setNewEmail] = useState(currentEmail);
@@ -17,8 +47,6 @@ const EditProfilePage = () => {
   const toast = useToast();
 
   const navigate = useNavigate();
-
-  const token = localStorage.getItem("token");
 
   const onSubmitEdit = async () => {
     try {
@@ -31,9 +59,9 @@ const EditProfilePage = () => {
           Authorization : `Bearer ${token}`
         }
       })
-      localStorage.setItem("username", newUsername);
-      localStorage.setItem("email", newEmail);
-      localStorage.setItem("phone", newPhone);
+      setCurrentUsername(newUsername);
+      setCurrentEmail(newEmail);
+      setCurrentPhone(newPhone);
       navigate("/")
       toast({
         title: 'Update data success.',
